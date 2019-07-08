@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  app:
+    image: segurosfalabella.azurecr.io/api-qr-rsa:${VERSION}
+    environment:
+      VERSION: ${VERSION}
+      RSA_PRIVATE_KEY: ${RSA_PRIVATE_KEY}
+      RSA_PUBLIC_KEY: ${RSA_PUBLIC_KEY}
+      QR_USER: ${QR_USER}
+      QR_PASSWORD: ${QR_PASSWORD}
+    networks:
+      - apps-v2
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: "localhost:24224"
+        tag: api-qr-rsa
+        labels: environment,version,appname
+    labels:
+      environment: ${ENVIRONMENT}
+      version: ${VERSION}
+      appname: api-qr-rsa
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        limits:
+          memory: 2000M
+        reservations:
+          memory: 900M
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 5
+        window: 30s
+networks:
+  apps-v2:
+    external: true
