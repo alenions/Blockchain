@@ -7,16 +7,16 @@ var BlockchainController = require('./BlockChainController');
 var BlockDto = require('../dto/BlockDto');
 var options = { bitlen: 1024, exp: 65537, public: true, pem: true, internal: true };
 const qrController = express();
+let index = 0;
+let blockchainController = new BlockchainController();
 
 qrController.set('port', process.env.PORT || 8080);
-qrController.use(basicAuth({ authorizer: myAuthorizer }))
+qrController.use(basicAuth({ authorizer: myAuthorizer }));
 
 function myAuthorizer(username, password) {
   //return username.startsWith(process.env.QR_USER) && password.startsWith(process.env.QR_PASSWORD)
   return username.startsWith("blockchain") && password.startsWith("blockchain");
-}
-
-let blockchainController = new BlockchainController();
+};
 
 qrController.use(express.json());
 
@@ -42,9 +42,9 @@ qrController.post('/qr', async function (request, response) {
     //6. Convierto el encriptado a QR
     qrcode.toDataURL(encrypted)
       .then(qr => {
+        index = index + 1;
         //6.Creo un objeto de BlockchainController para guardar contenido RSA en JSON. 
-        blockchainController.addBlock(new BlockDto(1, new Date(), { contenido: qr }));
-        blockchainController.addBlock(new BlockDto(2, new Date(), { contenido: qr }));
+        blockchainController.addBlock(new BlockDto(index, new Date(), { contenido: qr }));
         console.log(JSON.stringify(blockchainController, null, 4));
         console.log("El blockchain es valido: " + blockchainController.checkValid());
         response.status(201);
