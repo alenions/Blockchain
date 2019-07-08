@@ -1,8 +1,8 @@
 # README #
 
 ### Que es este repositorio? ###
-* Api para generar codigos QR encryptado en base64 con RSA a la cual se le entrega cualquier JSON. 
-* Estos QR son ilegibles al sacar una foto, solo pueden ser leidos con quien pueda decriptar con RSA y la clave publica guardada en Vault.
+* App para generar codigos QR encryptado en base64 con RSA a la cual se le entrega cualquier JSON y se guarda en cadena de bloques. 
+* Los QR contenidos en cada unos de los bloques son ilegibles al sacar una foto, solo pueden ser leidos con quien pueda decriptar con RSA y la clave publica guardada en variables de entorno de sistema en el que se encuentre la App.
 
 ### Como se Configura? ###
 
@@ -10,4 +10,4 @@
 
 ### Con quien respondo las Dudas? ###
 
-* Las dudas es posible consultar a Equipo Chile.
+* Las dudas es posible consultar a Sebastian.
