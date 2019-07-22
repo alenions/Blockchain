@@ -1,11 +1,14 @@
 var BlockDto = require('../dto/BlockDto');
-
+var SaveController = require('./SaveController');
+let saveController = new SaveController();
 module.exports = class BlockchainController {
     constructor() {
         this.chain = [this.crearGenesis()];
     }
     crearGenesis() {
-        return new BlockDto(0, new Date(), "Bloque Inicial", "0");
+        var blockDto = new BlockDto(0, new Date(), "Bloque Inicial", "0");
+        saveController.putBlock(blockDto);
+        return blockDto
     }
     latestBlock() {
         return this.chain[this.chain.length - 1]

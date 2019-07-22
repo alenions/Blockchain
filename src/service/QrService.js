@@ -1,12 +1,7 @@
 var NodeRSA = require('node-rsa');
-var log4js = require('log4js');
-var log = log4js.getLogger();
-log.level = 'info';
-log.level = 'error';
 
   module.exports = {
-    encryptValue: function (qrContent){
-      log.info('encryptValue()');
+    encryptValue: (qrContent) =>{
         var pk = new NodeRSA({b: 1024});
   
         //var privateKey = process.env.RSA_PRIVATE_KEY;
@@ -30,8 +25,7 @@ log.level = 'error';
         var encrypted = pk.encryptPrivate(qrContent, 'base64');
         return encrypted;
     },
-    decryptValue: function (encrypted){
-      log.info('decryptValue()');
+    decryptValue: (encrypted)=>{
         var pk = new NodeRSA({b: 1024});
         
         var publicKey = "-----BEGIN RSA PUBLIC KEY-----"+

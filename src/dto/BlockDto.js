@@ -1,4 +1,5 @@
-const SHA256 = require('crypto-js/sha256')
+const SHA256 = require('crypto-js/sha256');
+const crypto = require('crypto');
 
 module.exports = class Block {
     constructor(index,timestamp, data) {
@@ -7,7 +8,7 @@ module.exports = class Block {
         this.data = data;
         this.previousHash = "0";
         this.hash = this.calculateHash();
-        this.nonce = 0;
+        this.nonce = crypto.randomBytes(16).toString('base64');
     }
     calculateHash() {
         return SHA256(this.index + this.previousHash + this.timestamp + this.data + this.nonce).toString();

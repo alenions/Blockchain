@@ -2,11 +2,6 @@ var expect = require('chai');
 var chaiHttp = require('chai-http');
 var QrController = require('../../src/controller/QrController'); 
 
-var log4js = require('log4js');
-var log = log4js.getLogger();
-log.level = 'info';
-log.level = 'error';
-
 expect.use(chaiHttp);
 expect.should();
 
@@ -19,8 +14,7 @@ async function iniTest(){
                 expect.request(QrController)
                 .post('/qr')
                 .send({
-                    "proposal":"1234567890",
-                    "validate":"1234567890"
+                    "blockchain":"blockchain"
                 })
                 .set({ ContentType : "application/json", Authorization : token })
                 .end(function(error,response){
