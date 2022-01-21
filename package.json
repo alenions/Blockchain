@@ -12,7 +12,7 @@
     "express": "^4.16.4",
     "express-basic-auth": "^1.1.6",
     "level": "^5.0.1",
-    "log4js": "^4.1.0",
+    "log4js": "^6.4.0",
     "mocha": "^6.0.2",
     "node-rsa": "^1.0.5",
     "nodemon": "^1.18.10",
